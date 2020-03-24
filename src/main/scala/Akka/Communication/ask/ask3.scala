@@ -12,7 +12,7 @@ class ActorExample extends Actor{
   def receive = {
     case message:String => println("Message received: "+message+" from outside actor instance");
       Thread.sleep(5000);      // actor thread is sleeping
-      println("Replaying");
+      println("Replying");
       val senderName = sender();
       senderName ! "Hello, I got your message.";      // Replying message
   }

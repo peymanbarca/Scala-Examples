@@ -23,7 +23,7 @@ object CreatingActorExample{
     var actor2 = actorSystem.actorOf(Props[CreatingActor],"Actor2")  // Passing pops and explicitly giving name to the actor
     var actor3 = actorSystem.actorOf(Props(classOf[CreatingActor]),"Actor3")  // Passing actor class by using classOf
     var actor4 = actorSystem.actorOf(Props[CreatingActor], name = "Actor4")  // Name passing to variable
-    var actor5 = actorSystem.actorOf(Props(new CreatingActor()), name = "Actor5") // This approach is not recommended
+    var actor5 = actorSystem.actorOf(Props(new CreatingActor()), name = "Akka.Communication.forward.Actor5") // This approach is not recommended
 
     actor1 ! "Hello"
     actor2 ! "Hello"

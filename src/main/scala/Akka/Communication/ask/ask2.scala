@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 class ActorExample4 extends Actor{
   def receive = {
     case message:String => println("Message received: "+message+" from outside actor instance");
-      println("Replaying");
+      println("Replying");
       val senderName = sender();
       senderName ! "Hello, I got your message.";      // Replying message
   }
