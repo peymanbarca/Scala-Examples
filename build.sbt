@@ -10,6 +10,8 @@ libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.1.2"
 
 libraryDependencies += "org.mongodb" % "mongo-java-driver" % "2.10.1"
 
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.0.2"
+
 libraryDependencies +=
   "com.typesafe.akka" %% "akka-actor" % "2.3.16"
 
