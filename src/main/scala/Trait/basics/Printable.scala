@@ -1,3 +1,5 @@
+package Trait.basics
+
 /**
   * Created by zevik on 3/24/20.
   */
@@ -10,17 +12,4 @@ A trait is like an interface with a partial implementation. In scala, trait is a
 
 trait Printable{
   def print()
-}
-
-class A4 extends Printable{
-  def print(){
-    println("Hello")
-  }
-}
-
-object MainObjectT1{
-  def main(args:Array[String]){
-    var a = new A4()
-    a.print()
-  }
 }
