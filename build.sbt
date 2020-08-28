@@ -18,7 +18,7 @@ resolvers ++= Seq(
 
 libraryDependencies += "com.github.etaty" %% "rediscala" % "1.7.0"
 
-
+libraryDependencies += "org.postgresql" % "postgresql" % "9.3-1102-jdbc41"
 
 libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.2.137",

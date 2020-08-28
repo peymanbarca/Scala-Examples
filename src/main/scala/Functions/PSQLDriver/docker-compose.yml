@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+
+
+  # ----------------- PostgreSQL (with PostGIS) SERVER ------------
+  postgresql_container:
+    image: mdillon/postgis  # postgres 11.2 + postgis 2.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+
+
+
+
