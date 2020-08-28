@@ -1,9 +1,10 @@
-package Trait.MongoDriver.mongo
+package Trait.MongoDriver
 
 /**
   * Created by zevik on 8/27/20.
   */
 
+import Trait.MongoDriver.mongo.{MongoClient, Query}
 import com.mongodb.BasicDBObject
 
 object TestFindQuery extends App{

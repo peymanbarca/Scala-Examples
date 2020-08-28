@@ -3,9 +3,11 @@ package Functions.fp
 /**
   * Created by zevik on 8/27/20.
   */
-object Composibility {
+object Composibility extends App{
+
   def even: Int => Boolean = _ % 2 == 0
   def not: Boolean => Boolean = !_
+
   def filter[A](criteria: A => Boolean)(col: Traversable[A])  = col.filter(criteria)
   def map[A, B](f: A => B)(col: Traversable[A]) = col.map(f)
 
@@ -16,6 +18,8 @@ object Composibility {
   def odd: Int => Boolean = not compose even
   def oddFilter = filter(odd) _
   def doubleAllOdd = oddFilter andThen map(double)
-  //filter(Vector(1, 2, 5, 6, 7, 14))(even).map(_ * 2)
-  doubleAllEven(Vector(1, 2, 5, 6, 7, 14))
+
+  //=filter(Vector(1, 2, 5, 6, 7, 14))(even).map(_ * 2)
+  val res = doubleAllEven(Vector(1, 2, 5, 6, 7, 14))
+  print(res)
 }

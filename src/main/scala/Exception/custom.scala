@@ -8,7 +8,7 @@ class ExceptionExample{
   @throws(classOf[InvalidAgeException])
   def validate(age:Int){
     if(age<18){
-      throw new InvalidAgeException("Not eligible")
+      throw new InvalidAgeException("Not eligible, You are under 18")
     }else{
       println("You are eligible")
     }

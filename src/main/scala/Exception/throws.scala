@@ -15,7 +15,7 @@ object MainObjectEx1{
     try{
       e.validate()
     }catch{
-      case ex : NumberFormatException => println("Exception handeled here")
+      case ex : NumberFormatException => println("Exception handled here")
     }
     println("Rest of the code executing...")
   }

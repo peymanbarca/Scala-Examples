@@ -13,6 +13,7 @@ class PureSquare(val side: Int) {
 }
 
 object FunctionalObject extends App {
+
   val s = new Square(10)
   println(s.area)
   s.side = 20

@@ -4,12 +4,15 @@
 
 
 sealed trait Claim { val claimId: Int }
+
 case class Full(val claimId: Int) extends Claim
 case class Partial(val claimId: Int, percentage: Double) extends Claim
 case class Generic(override val claimId: Int) extends Claim
 
 case class Location(stateCode: Option[String], zipCode: Option[String])
 case class Req(productId: String, location: Location, claim: Claim)
+
+
 
 object PricingSystem {
   type PC = Tuple2[Req, Option[Double]]
