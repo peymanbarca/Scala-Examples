@@ -16,6 +16,7 @@ resolvers ++= Seq(
   "Scala-Tools Maven2 Snapshots Repository" at "http://scala-tools.org/repo-snapshots"
 )
 
+libraryDependencies += "com.github.etaty" %% "rediscala" % "1.7.0"
 
 
 

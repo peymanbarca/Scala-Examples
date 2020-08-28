@@ -1,4 +1,4 @@
-package Akka.Communication.tell
+package Akka.Basics.Communication.tell
 
 /**
   * Created by zevik on 3/24/20.

@@ -1,4 +1,4 @@
-package Akka.Communication.forward
+package Akka.Basics.Communication.forward
 
 /**
   * Created by zevik on 3/24/20.
