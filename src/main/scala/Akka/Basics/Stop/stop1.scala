@@ -17,7 +17,7 @@ import akka.actor.{Actor,ActorSystem, Props};
 
 class ActorExample6 extends Actor{
   def receive = {
-    case message:String => println("Message received: "+message);
+    case message:String => println("Message received: "+message + " from : " + self.path);
     case _ => println("Unknown message");
   }
   override def postStop(){

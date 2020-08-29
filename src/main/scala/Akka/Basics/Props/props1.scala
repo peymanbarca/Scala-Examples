@@ -20,7 +20,7 @@ class PropsExample extends Actor {
 object PropsMain{
   def main(args:Array[String]){
     var actorSystem = ActorSystem("ActorSystem");
-    var actor = actorSystem.actorOf(Props[PropsExample],"PropExample");
+    var actor = actorSystem.actorOf(Props[PropsExample],name="PropExample");
     actor ! "Hello from"
   }
 }

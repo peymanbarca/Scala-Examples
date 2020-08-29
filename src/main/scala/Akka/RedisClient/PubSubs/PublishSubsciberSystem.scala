@@ -21,7 +21,7 @@ import scala.util.{Failure, Success}
 object ExamplePubSub extends App {
 
 
-  implicit val akkaSystem = akka.actor.ActorSystem()
+  implicit val akkaSystem = akka.actor.ActorSystem(name = "OurAkkaSystem")
 
   val redis = RedisClient()
 
@@ -49,6 +49,9 @@ object ExamplePubSub extends App {
   val subscriberActorRef2 = akkaSystem./("subscriber_actor")
 
 
+  // -------------- create stage3 actor ----------
+  akkaSystem.actorOf(Props[StageThreeActor],name = "StageThreeActor")
+
   // --------------------- print akka system tree -------------
   val res = new PrivateMethodExposer(akkaSystem)('printTree)()
   println(res)
@@ -74,9 +77,9 @@ class SubscribeActor(channels: Seq[String] = Nil, patterns: Seq[String] = Nil)
     println(s"new message received : $data")
 
     implicit val timeout = Timeout(FiniteDuration(1, TimeUnit.SECONDS))
-    context.actorSelection("akka://default/user/" + "subscriber_actor").resolveOne().onComplete {
-      case Success(actorRef) => context.actorOf(Props[PublisherStageTwoActor]).tell(data,actorRef)
-      case Failure(ex) => println("akka://default/user/" + "subscriber_actor" + " does not exist")
+    context.actorSelection("akka://OurAkkaSystem/user/" + "subscriber_actor").resolveOne().onComplete {
+      case Success(actorRef) => context.actorOf(Props[StageTwoActor]).tell(data,actorRef)
+      case Failure(ex) => println("akka://OurAkkaSystem/user/" + "subscriber_actor" + " does not exist")
     }
 
 
@@ -92,42 +95,36 @@ class SubscribeActor(channels: Seq[String] = Nil, patterns: Seq[String] = Nil)
 
 }
 
-class PublisherStageTwoActor extends Actor{
+class StageTwoActor extends Actor{
 
 
   def receive ={
     case message:String => {
-      println("Message received in PublisherStageTwoActor from "+sender().path.name+" : "+message);
-
+      println("Message received in StageTwoActor from "+sender().path.name+" : "+message);
       implicit val timeout = Timeout(FiniteDuration(1, TimeUnit.SECONDS))
-      context.actorSelection("akka://default/user/" + "RedisClient-$a").resolveOne().onComplete {
-        case Success(actorRef) => println("publishing over redis actor ... "); actorRef.forward(message)
-        case Failure(ex) => println("akka://default/user/" + "RedisClient-$a" + " does not exist")
+      context.actorSelection("akka://OurAkkaSystem/user/" + "StageThreeActor").resolveOne().onComplete {
+        case Success(actorRef) => println(" forwarding for StageThreeActor"); actorRef.forward(message)
+        case Failure(ex) => println("akka://OurAkkaSystem/user/" + "StageThreeActor" + " does not exist")
       }
-
-      //redis.publish(channel =  "produceStage2",value= " This value Received and stage 2 ready to begin on that " + message)
     }
     case _ => println("Unknown message");
   }
 
+  override def postStop(): Unit = {println("StageTwoActor omitted!")}
+
 }
 
 
+class StageThreeActor extends Actor{
 
-class PrivateMethodCaller(x: AnyRef, methodName: String) {
-  def apply(_args: Any*): Any = {
-    val args = _args.map(_.asInstanceOf[AnyRef])
 
-    def _parents: Stream[Class[_]] = Stream(x.getClass) #::: _parents.map(_.getSuperclass)
-
-    val parents = _parents.takeWhile(_ != null).toList
-    val methods = parents.flatMap(_.getDeclaredMethods)
-    val method = methods.find(_.getName == methodName).getOrElse(throw new IllegalArgumentException("Method " + methodName + " not found"))
-    method.setAccessible(true)
-    method.invoke(x, args: _*)
+  def receive ={
+    case message:String => {
+      println("Message received in StageThreeActor from "+sender().path+" : "+message);
+    }
+    case _ => println("Unknown message");
   }
-}
 
-class PrivateMethodExposer(x: AnyRef) {
-  def apply(method: scala.Symbol): PrivateMethodCaller = new PrivateMethodCaller(x, method.name)
+  override def postStop(): Unit = {println("StageThreeActor omitted!")}
+
 }
