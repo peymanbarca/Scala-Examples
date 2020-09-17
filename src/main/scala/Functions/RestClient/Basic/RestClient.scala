@@ -1,3 +1,5 @@
+package Functions.RestClient.Basic
+
 // Compile in sbt
 // Run in sbt>run get https://github.com/nraychaudhuri/scalainaction/raw/master/chap02/breakable.scala
 //
@@ -5,13 +7,10 @@
 // >run (post | get | delete | options) -d <request parameters comma separated -h <headers comma separated> <url>
 // at minimum you should specify action(post, get, delete, options) and url
 
-import org.apache.http._
 import org.apache.http.client.entity._
 import org.apache.http.client.methods._
 import org.apache.http.impl.client._
-import org.apache.http.client.utils._
 import org.apache.http.message._
-import org.apache.http.params._
 
 
 object RestClient extends App{

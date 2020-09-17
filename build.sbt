@@ -25,7 +25,11 @@ libraryDependencies ++= Seq(
   "org.squeryl" % "squeryl_2.10" % "0.9.5-6"
 )
 
+libraryDependencies += "net.ruippeixotog" %% "scala-scraper" % "2.2.0"
 
+libraryDependencies += "com.google.code.gson" % "gson" % "2.2.4"
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4"
 
 libraryDependencies +=
   "com.typesafe.akka" %% "akka-actor" % "2.3.16"
